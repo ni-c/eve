@@ -1,4 +1,3 @@
-eve
-===
+# eve
 
-Building an autonomous omniwheel robot
+Autonomous omniwheel robot
