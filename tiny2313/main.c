@@ -34,18 +34,21 @@ void init(void) {
 }
 
 int main(void) {
+
     // Set port 1 to output
     DDRD |= (1 << DDD0);
 
     init();
 
-	while (1) {
-	    if (i2c_buffer[0] == 0) {
-	        // port d0 low
-            PORTD &= ~(1 << PD0);
-		} else {
-		    // port d0 high
+    while (1) {
+
+        uint16_t val = ((uint16_t)i2c_buffer[1] << 8) | i2c_buffer[0];
+        if (val == 1337) {
+            // port d0 high
             PORTD |= (1 << PD0);
-		}
-	}
+        } else {
+            // port d0 low
+            PORTD &= ~(1 << PD0);
+        }
+    }
 }

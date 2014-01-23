@@ -3,12 +3,8 @@ import time
 bus = smbus.SMBus(1)
 address = 0x1a
 
-def write(value):
-    bus.write_byte_data(address, 0, value)
-    return -1
-
 while True:
     time.sleep(1)
-    write(0)
+    bus.write_word_data(address, 0, 1337)
     time.sleep(1)
-    write(255)
+    bus.write_word_data(address, 0, 0)
