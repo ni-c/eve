@@ -178,7 +178,7 @@ LDFLAGS += $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB)
 AVRDUDE_PROGRAMMER = stk500
 
 # com1 = serial port. Use lpt1 to connect to parallel port.
-AVRDUDE_PORT = com1    # programmer connected to serial device
+AVRDUDE_PORT = /dev/ttyACM0    # programmer connected to serial device
 
 AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
 #AVRDUDE_WRITE_EEPROM = -U eeprom:w:$(TARGET).eep
@@ -208,9 +208,9 @@ AVRDUDE_FLAGS += $(AVRDUDE_ERASE_COUNTER)
 # ---------------------------------------------------------------------------
 
 # Define directories, if needed.
-DIRAVR = c:/winavr
-DIRAVRBIN = $(DIRAVR)/bin
-DIRAVRUTILS = $(DIRAVR)/utils/bin
+DIRAVR = /usr/bin/
+DIRAVRBIN = $(DIRAVR)
+DIRAVRUTILS = $(DIRAVR)
 DIRINC = .
 DIRLIB = $(DIRAVR)/avr/lib
 
