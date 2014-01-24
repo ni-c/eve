@@ -16,7 +16,7 @@
 #define 	I2CADDRESS 0x34
 
 #ifndef 	F_CPU
-#define 	F_CPU 1000000UL
+#define 	F_CPU 20000000UL
 #endif
 
 void init(void) {
