@@ -12,7 +12,8 @@
 #include 	<avr/interrupt.h>
 #include 	<avr/pgmspace.h>
 
-#include 	"i2cslave.h"
+#include    "i2cslave.h"
+#include    "rx.h"
 #define 	I2CADDRESS 0x34
 
 #ifndef 	F_CPU
@@ -25,6 +26,9 @@ void init(void) {
 
     // TWI slave init
     i2c_init(I2CADDRESS);
+
+    // RX init
+    rx_init();
 
     // Re-enable interrupts
     sei();
@@ -41,7 +45,7 @@ int main(void) {
     init();
 
     while (1) {
-
+/*
         uint16_t val = ((uint16_t)i2c_buffer[1] << 8) | i2c_buffer[0];
         if (val == 1337) {
             // port d0 high
@@ -50,5 +54,6 @@ int main(void) {
             // port d0 low
             PORTD &= ~(1 << PD0);
         }
+        */
     }
 }
