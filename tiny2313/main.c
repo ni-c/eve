@@ -7,7 +7,7 @@
  * @date    Jan 23, 2014
  *
  * I2C addresses:
- * 0x00-0x01: Control register (on/off)
+ * 0x00-0x01: Control register (en- and disable function etc)
  * 0x02-0x03: Remaining steps stepper 1
  * 0x04-0x05: Remaining steps stepper 2
  * 0x06-0x07: Remaining steps stepper 3
@@ -36,9 +36,10 @@
 #include    "main.h"
 #include    "i2cslave.h"
 #include    "rx.h"
+#include    "motor.h"
 #define 	I2CADDRESS 0x34
 
-volatile uint8_t control_register[2] = {0, 0};
+volatile uint8_t control_register[2] = { 0, 0 };
 
 void init(void) {
     // Disable interrupts
@@ -50,6 +51,9 @@ void init(void) {
     // RX init
     rx_init();
 
+    // Init motor
+    motor_init();
+
     // Re-enable interrupts
     sei();
 
@@ -59,7 +63,7 @@ void init(void) {
 
 int main(void) {
 
-    // Set LED (port 1) to output
+    // Set debug LED (port 1) to output
     DDRD |= (1 << DDD0);
     PORTD |= (1 << PD0);
 
@@ -67,26 +71,30 @@ int main(void) {
 
     while (1) {
 
-        if (control_register[0] != i2c_buffer[0]) {
-            control_register[0] = i2c_buffer[0];
-            // Bit 1 in control register 0 = RX-Receiver;
-            if ((control_register[0] >> 1)  & 0x01) {
-                rx_enable();
-            } else {
-                rx_disable();
+        // If new I2C data was written into the mcu
+        if (i2c_received_data()) {
+
+            // If the control register 0 has changed
+            if (control_register[0] != i2c_buffer[0]) {
+                control_register[0] = i2c_buffer[0];
+
+                // Bit 1 in control register 0 = RX-Receiver;
+                if ((control_register[0] >> 1) & 0x01) {
+                    rx_enable();
+                } else {
+                    rx_disable();
+                }
+
+                // Bit 2 in control register 0 = Debug LED;
+                if ((control_register[0] >> 1) & 0x01) {
+                    PORTD &= ~(1 << PD0);
+                } else {
+                    PORTD |= (1 << PD0);
+                }
             }
-        }
 
-
-/*
-        uint16_t val = ((uint16_t)i2c_buffer[1] << 8) | i2c_buffer[0];
-        if (val == 1337) {
-            // port d0 high
-            PORTD |= (1 << PD0);
-        } else {
-            // port d0 low
-            PORTD &= ~(1 << PD0);
+            // Update motor vars
+            motor_update();
         }
-        */
     }
 }

@@ -31,6 +31,9 @@
 
 #include "main.h"
 
+volatile uint8_t i2c_buffer[I2C_BUFFER_SIZE]; /*!< I2C buffer */
+volatile uint8_t buffer_adr; /*!< Virtual buffer address register */
+
 /**
  * Initialize slave
  *
@@ -38,8 +41,12 @@
  */
 void i2c_init(uint8_t address);
 
-volatile uint8_t i2c_buffer[I2C_BUFFER_SIZE]; /*!< I2C buffer */
-volatile uint8_t buffer_adr; /*!< Virtual buffer address register */
+/**
+ * Returns 1 if new data was received
+ *
+ * @return 1 if new data was received
+ */
+uint8_t i2c_received_data(void);
 
 #if 	(I2C_BUFFER_SIZE > 254)
 #error Buffer to big! 254 bytes max.

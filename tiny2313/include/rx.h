@@ -11,8 +11,8 @@
 #define RX_H_
 
 /**
-* Initialization of the RX part
-*/
+ * Initialization of the RX part
+ */
 void rx_init(void);
 
 /*

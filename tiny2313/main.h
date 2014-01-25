@@ -1,10 +1,10 @@
 /**
  * eve (https://github.com/ni-c/eve)
  *
- * @file    main.c
+ * @file    main.h
  * @brief   Main program
  * @author  Willi Thiel (ni-c@ni-c.de)
- * @date    Jan 23, 2014
+ * @date    Jan 25, 2014
 */
 #ifndef MAIN_H_
 #define MAIN_H_

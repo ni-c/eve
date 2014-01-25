@@ -6282,7 +6282,7 @@ Low profile connectors, straight&lt;p&gt;
 <part name="GPIO" library="con-ml" deviceset="ML26" device=""/>
 <part name="T1" library="transistor-npn" deviceset="2N3904" device=""/>
 <part name="P+1" library="supply1" deviceset="VCC" device=""/>
-<part name="R4" library="resistor" deviceset="R-EU_" device="0207/12" value="6.8k"/>
+<part name="R4" library="resistor" deviceset="R-EU_" device="0207/12" value="7.8k"/>
 </parts>
 <sheets>
 <sheet>

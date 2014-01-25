@@ -53,11 +53,18 @@
 								} /*!< Set SDA as input; Clear all interrupt flags, except Start Cond; Set USI to shift out 8 bits */
 
 typedef enum {
-    USI_SLAVE_CHECK_ADDRESS = 0x00, USI_SLAVE_SEND_DATA = 0x01, USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA = 0x02, USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA = 0x03, USI_SLAVE_REQUEST_DATA = 0x04, USI_SLAVE_GET_DATA_AND_SEND_ACK = 0x05
+    USI_SLAVE_CHECK_ADDRESS = 0x00,
+    USI_SLAVE_SEND_DATA = 0x01,
+    USI_SLAVE_REQUEST_REPLY_FROM_SEND_DATA = 0x02,
+    USI_SLAVE_CHECK_REPLY_FROM_SEND_DATA = 0x03,
+    USI_SLAVE_REQUEST_DATA = 0x04,
+    USI_SLAVE_GET_DATA_AND_SEND_ACK = 0x05
 } overflow_state_t;
 
 volatile uint8_t slave_address; /*!< Address of the I2C slave */
-volatile overflow_state_t overflow_state; /*!< overflow state of the I2C slave */
+overflow_state_t overflow_state; /*!< overflow state of the I2C slave */
+
+int8_t i2c_data_received; /*!< Is set to true if data new was received */
 
 /**
  * Initialize slave
@@ -92,6 +99,19 @@ void i2c_init(uint8_t address) {
 
     // clear all interrupt flags and reset overflow counter
     USISR = (1 << USI_START_COND_INT) | (1 << USIOIF) | (1 << USIPF) | (1 << USIDC);
+}
+
+/**
+ * Returns 1 if new data was received
+ *
+ * @return 1 if new data was received
+ */
+uint8_t i2c_received_data(void) {
+    if (i2c_data_received == 1) {
+        i2c_data_received = 0;
+        return 1;
+    }
+    return 0;
 }
 
 /**
@@ -231,6 +251,9 @@ ISR( USI_OVERFLOW_VECTOR) {
 
                 // Write data to buffer
                 i2c_buffer[buffer_adr] = data;
+
+                // Set received flag
+                i2c_data_received = 1;
 
                 // Increment buffer address for next write access
                 buffer_adr++;
