@@ -219,7 +219,7 @@ ISR( USI_OVERFLOW_VECTOR) {
             // First access, read buffer position
             if (buffer_adr == 0xFF) {
                 // Check if address within buffer size
-                if (data <= buffer_size) {
+                if (data <= I2C_BUFFER_SIZE) {
                     // Set position as received
                     buffer_adr = data;
                 } else {

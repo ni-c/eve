@@ -6180,6 +6180,73 @@ Low profile connectors, straight&lt;p&gt;
 </deviceset>
 </devicesets>
 </library>
+<library name="transistor-npn">
+<description>&lt;b&gt;NPN Transistors&lt;/b&gt;&lt;p&gt;
+&lt;author&gt;Created by librarian@cadsoft.de&lt;/author&gt;</description>
+<packages>
+<package name="TO92">
+<description>&lt;b&gt;TO 92&lt;/b&gt;</description>
+<wire x1="-2.0946" y1="-1.651" x2="-2.6549" y2="-0.254" width="0.127" layer="21" curve="-32.781"/>
+<wire x1="-2.6549" y1="-0.254" x2="-0.7863" y2="2.5485" width="0.127" layer="21" curve="-78.3185"/>
+<wire x1="0.7863" y1="2.5484" x2="2.0945" y2="-1.651" width="0.127" layer="21" curve="-111.1"/>
+<wire x1="-2.0945" y1="-1.651" x2="2.0945" y2="-1.651" width="0.127" layer="21"/>
+<wire x1="-2.2537" y1="-0.254" x2="-0.2863" y2="-0.254" width="0.127" layer="51"/>
+<wire x1="-2.6549" y1="-0.254" x2="-2.2537" y2="-0.254" width="0.127" layer="21"/>
+<wire x1="-0.2863" y1="-0.254" x2="0.2863" y2="-0.254" width="0.127" layer="21"/>
+<wire x1="2.2537" y1="-0.254" x2="2.6549" y2="-0.254" width="0.127" layer="21"/>
+<wire x1="0.2863" y1="-0.254" x2="2.2537" y2="-0.254" width="0.127" layer="51"/>
+<wire x1="-0.7863" y1="2.5485" x2="0.7863" y2="2.5485" width="0.127" layer="51" curve="-34.2936"/>
+<pad name="1" x="1.27" y="0" drill="0.8128" shape="octagon"/>
+<pad name="2" x="0" y="1.905" drill="0.8128" shape="octagon"/>
+<pad name="3" x="-1.27" y="0" drill="0.8128" shape="octagon"/>
+<text x="3.175" y="0.635" size="1.27" layer="25" ratio="10">&gt;NAME</text>
+<text x="3.175" y="-1.27" size="1.27" layer="27" ratio="10">&gt;VALUE</text>
+<text x="-0.635" y="0.635" size="1.27" layer="51" ratio="10">2</text>
+<text x="-2.159" y="0" size="1.27" layer="51" ratio="10">3</text>
+<text x="1.143" y="0" size="1.27" layer="51" ratio="10">1</text>
+</package>
+</packages>
+<symbols>
+<symbol name="NPN">
+<wire x1="2.54" y1="2.54" x2="0.508" y2="1.524" width="0.1524" layer="94"/>
+<wire x1="1.778" y1="-1.524" x2="2.54" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="2.54" y1="-2.54" x2="1.27" y2="-2.54" width="0.1524" layer="94"/>
+<wire x1="1.27" y1="-2.54" x2="1.778" y2="-1.524" width="0.1524" layer="94"/>
+<wire x1="1.54" y1="-2.04" x2="0.308" y2="-1.424" width="0.1524" layer="94"/>
+<wire x1="1.524" y1="-2.413" x2="2.286" y2="-2.413" width="0.254" layer="94"/>
+<wire x1="2.286" y1="-2.413" x2="1.778" y2="-1.778" width="0.254" layer="94"/>
+<wire x1="1.778" y1="-1.778" x2="1.524" y2="-2.286" width="0.254" layer="94"/>
+<wire x1="1.524" y1="-2.286" x2="1.905" y2="-2.286" width="0.254" layer="94"/>
+<wire x1="1.905" y1="-2.286" x2="1.778" y2="-2.032" width="0.254" layer="94"/>
+<text x="-10.16" y="7.62" size="1.778" layer="95">&gt;NAME</text>
+<text x="-10.16" y="5.08" size="1.778" layer="96">&gt;VALUE</text>
+<rectangle x1="-0.254" y1="-2.54" x2="0.508" y2="2.54" layer="94"/>
+<pin name="B" x="-2.54" y="0" visible="off" length="short" direction="pas" swaplevel="1"/>
+<pin name="E" x="2.54" y="-5.08" visible="off" length="short" direction="pas" swaplevel="3" rot="R90"/>
+<pin name="C" x="2.54" y="5.08" visible="off" length="short" direction="pas" swaplevel="2" rot="R270"/>
+</symbol>
+</symbols>
+<devicesets>
+<deviceset name="2N3904" prefix="Q">
+<description>&lt;b&gt;NPN Transistor&lt;/b&gt;</description>
+<gates>
+<gate name="G1" symbol="NPN" x="0" y="0"/>
+</gates>
+<devices>
+<device name="" package="TO92">
+<connects>
+<connect gate="G1" pin="B" pad="2"/>
+<connect gate="G1" pin="C" pad="1"/>
+<connect gate="G1" pin="E" pad="3"/>
+</connects>
+<technologies>
+<technology name=""/>
+</technologies>
+</device>
+</devices>
+</deviceset>
+</devicesets>
+</library>
 </libraries>
 <attributes>
 </attributes>
@@ -6194,7 +6261,6 @@ Low profile connectors, straight&lt;p&gt;
 <part name="P+3" library="supply1" deviceset="VCC" device=""/>
 <part name="GND6" library="supply1" deviceset="GND" device=""/>
 <part name="U$2" library="DTRX35" deviceset="DTRX35" device=""/>
-<part name="P+9" library="supply1" deviceset="VCC" device=""/>
 <part name="GND11" library="supply1" deviceset="GND" device=""/>
 <part name="C4" library="capacitor-wima" deviceset="C" device="2.5/2" value="100nF"/>
 <part name="JP1" library="avr-7" deviceset="AVR-ISP-6" device="VERT"/>
@@ -6214,19 +6280,30 @@ Low profile connectors, straight&lt;p&gt;
 <part name="Q2" library="transistor-small-signal" deviceset="BS170" device=""/>
 <part name="Q3" library="transistor-small-signal" deviceset="BS170" device=""/>
 <part name="GPIO" library="con-ml" deviceset="ML26" device=""/>
+<part name="T1" library="transistor-npn" deviceset="2N3904" device=""/>
+<part name="P+1" library="supply1" deviceset="VCC" device=""/>
+<part name="R4" library="resistor" deviceset="R-EU_" device="0207/12" value="7.8k"/>
 </parts>
 <sheets>
 <sheet>
 <plain>
+<text x="76.2" y="73.66" size="1.778" layer="91">X-CLK (step) </text>
+<text x="76.2" y="55.88" size="1.778" layer="91">Y-CLK (step)</text>
+<text x="76.2" y="76.2" size="1.778" layer="91">Z-CLK (step)</text>
+<text x="76.2" y="68.58" size="1.778" layer="91">X-ENABLE</text>
+<text x="76.2" y="71.12" size="1.778" layer="91">Y-ENABLE</text>
+<text x="76.2" y="78.74" size="1.778" layer="91">Z-ENABLE</text>
+<text x="76.2" y="43.18" size="1.778" layer="91">X-CW/CCW (direction)</text>
+<text x="76.2" y="45.72" size="1.778" layer="91">Y-CW/CCW (direction)</text>
+<text x="76.2" y="58.42" size="1.778" layer="91">Z-CW/CCW (direction)</text>
 </plain>
 <instances>
 <instance part="C1" gate="G$1" x="33.02" y="45.72" rot="R180"/>
 <instance part="P+3" gate="VCC" x="20.32" y="50.8" rot="R90"/>
 <instance part="GND6" gate="1" x="20.32" y="43.18" rot="R270"/>
-<instance part="U$2" gate="G$1" x="101.6" y="50.8"/>
-<instance part="P+9" gate="VCC" x="81.28" y="50.8" rot="R90"/>
-<instance part="GND11" gate="1" x="81.28" y="63.5" rot="R270"/>
-<instance part="C4" gate="G$1" x="86.36" y="58.42"/>
+<instance part="U$2" gate="G$1" x="149.86" y="50.8"/>
+<instance part="GND11" gate="1" x="129.54" y="63.5" rot="R270"/>
+<instance part="C4" gate="G$1" x="134.62" y="58.42"/>
 <instance part="JP1" gate="G$1" x="119.38" y="81.28"/>
 <instance part="GND7" gate="1" x="137.16" y="78.74" rot="MR270"/>
 <instance part="P+2" gate="VCC" x="137.16" y="83.82" rot="R270"/>
@@ -6244,20 +6321,14 @@ Low profile connectors, straight&lt;p&gt;
 <instance part="Q2" gate="1" x="88.9" y="106.68" rot="R90"/>
 <instance part="Q3" gate="1" x="76.2" y="109.22" rot="R90"/>
 <instance part="GPIO" gate="1" x="58.42" y="121.92"/>
+<instance part="T1" gate="G1" x="119.38" y="58.42"/>
+<instance part="P+1" gate="VCC" x="121.92" y="68.58"/>
+<instance part="R4" gate="G$1" x="109.22" y="58.42" rot="R180"/>
 </instances>
 <busses>
 </busses>
 <nets>
 <net name="VCC" class="0">
-<segment>
-<pinref part="P+9" gate="VCC" pin="VCC"/>
-<pinref part="U$2" gate="G$1" pin="VCC"/>
-<wire x1="83.82" y1="50.8" x2="86.36" y2="50.8" width="0.1524" layer="91"/>
-<pinref part="C4" gate="G$1" pin="2"/>
-<wire x1="86.36" y1="50.8" x2="96.52" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="53.34" x2="86.36" y2="50.8" width="0.1524" layer="91"/>
-<junction x="86.36" y="50.8"/>
-</segment>
 <segment>
 <pinref part="JP1" gate="G$1" pin="2"/>
 <wire x1="124.46" y1="83.82" x2="134.62" y2="83.82" width="0.1524" layer="91"/>
@@ -6286,18 +6357,23 @@ Low profile connectors, straight&lt;p&gt;
 <wire x1="111.76" y1="101.6" x2="114.3" y2="101.6" width="0.1524" layer="91"/>
 <pinref part="P+10" gate="VCC" pin="VCC"/>
 </segment>
+<segment>
+<pinref part="P+1" gate="VCC" pin="VCC"/>
+<pinref part="T1" gate="G1" pin="C"/>
+<wire x1="121.92" y1="66.04" x2="121.92" y2="63.5" width="0.1524" layer="91"/>
+</segment>
 </net>
 <net name="GND" class="0">
 <segment>
 <pinref part="GND11" gate="1" pin="GND"/>
 <pinref part="C4" gate="G$1" pin="1"/>
-<wire x1="83.82" y1="63.5" x2="86.36" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="60.96" x2="86.36" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="86.36" y1="63.5" x2="93.98" y2="63.5" width="0.1524" layer="91"/>
-<wire x1="93.98" y1="63.5" x2="93.98" y2="55.88" width="0.1524" layer="91"/>
+<wire x1="132.08" y1="63.5" x2="134.62" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="60.96" x2="134.62" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="63.5" x2="142.24" y2="63.5" width="0.1524" layer="91"/>
+<wire x1="142.24" y1="63.5" x2="142.24" y2="55.88" width="0.1524" layer="91"/>
 <pinref part="U$2" gate="G$1" pin="GND"/>
-<wire x1="93.98" y1="55.88" x2="96.52" y2="55.88" width="0.1524" layer="91"/>
-<junction x="86.36" y="63.5"/>
+<wire x1="142.24" y1="55.88" x2="144.78" y2="55.88" width="0.1524" layer="91"/>
+<junction x="134.62" y="63.5"/>
 </segment>
 <segment>
 <pinref part="JP1" gate="G$1" pin="6"/>
@@ -6367,7 +6443,7 @@ Low profile connectors, straight&lt;p&gt;
 <net name="N$22" class="0">
 <segment>
 <pinref part="U$1" gate="G$1" pin="(INT0)PD2"/>
-<wire x1="76.2" y1="48.26" x2="96.52" y2="48.26" width="0.1524" layer="91"/>
+<wire x1="76.2" y1="48.26" x2="144.78" y2="48.26" width="0.1524" layer="91"/>
 <pinref part="U$2" gate="G$1" pin="CH3"/>
 </segment>
 </net>
@@ -6452,6 +6528,96 @@ Low profile connectors, straight&lt;p&gt;
 <pinref part="GPIO" gate="1" pin="1"/>
 <wire x1="68.58" y1="106.68" x2="66.04" y2="106.68" width="0.1524" layer="91"/>
 <junction x="76.2" y="99.06"/>
+</segment>
+</net>
+<net name="N$6" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(T1)PD5"/>
+<wire x1="76.2" y1="55.88" x2="91.44" y2="55.88" width="0.1524" layer="91"/>
+<junction x="91.44" y="55.88"/>
+</segment>
+</net>
+<net name="N$7" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(OC0A)PB2"/>
+<wire x1="76.2" y1="73.66" x2="91.44" y2="73.66" width="0.1524" layer="91"/>
+<junction x="91.44" y="73.66"/>
+</segment>
+</net>
+<net name="N$8" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(OC1A)PB3"/>
+<wire x1="76.2" y1="76.2" x2="91.44" y2="76.2" width="0.1524" layer="91"/>
+<junction x="91.44" y="76.2"/>
+</segment>
+</net>
+<net name="N$9" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(OC1B)PB4"/>
+<wire x1="76.2" y1="78.74" x2="91.44" y2="78.74" width="0.1524" layer="91"/>
+<junction x="91.44" y="78.74"/>
+</segment>
+</net>
+<net name="N$10" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(AIN1)PB1"/>
+<wire x1="76.2" y1="71.12" x2="91.44" y2="71.12" width="0.1524" layer="91"/>
+<junction x="91.44" y="71.12"/>
+</segment>
+</net>
+<net name="N$11" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(AIN0)PB0"/>
+<wire x1="76.2" y1="68.58" x2="91.44" y2="68.58" width="0.1524" layer="91"/>
+<junction x="91.44" y="68.58"/>
+</segment>
+</net>
+<net name="N$12" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(ICP)PD6"/>
+<wire x1="76.2" y1="58.42" x2="91.44" y2="58.42" width="0.1524" layer="91"/>
+<junction x="91.44" y="58.42"/>
+</segment>
+</net>
+<net name="N$13" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(TXD)PD1"/>
+<wire x1="76.2" y1="45.72" x2="91.44" y2="45.72" width="0.1524" layer="91"/>
+<junction x="91.44" y="45.72"/>
+</segment>
+</net>
+<net name="N$14" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(RXD)PD0"/>
+<wire x1="76.2" y1="43.18" x2="91.44" y2="43.18" width="0.1524" layer="91"/>
+<junction x="91.44" y="43.18"/>
+</segment>
+</net>
+<net name="N$17" class="0">
+<segment>
+<pinref part="U$2" gate="G$1" pin="VCC"/>
+<pinref part="C4" gate="G$1" pin="2"/>
+<wire x1="134.62" y1="50.8" x2="144.78" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="134.62" y1="53.34" x2="134.62" y2="50.8" width="0.1524" layer="91"/>
+<pinref part="T1" gate="G1" pin="E"/>
+<wire x1="121.92" y1="53.34" x2="121.92" y2="50.8" width="0.1524" layer="91"/>
+<wire x1="121.92" y1="50.8" x2="134.62" y2="50.8" width="0.1524" layer="91"/>
+<junction x="134.62" y="50.8"/>
+</segment>
+</net>
+<net name="N$15" class="0">
+<segment>
+<pinref part="R4" gate="G$1" pin="1"/>
+<pinref part="T1" gate="G1" pin="B"/>
+<wire x1="114.3" y1="58.42" x2="116.84" y2="58.42" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$18" class="0">
+<segment>
+<pinref part="R4" gate="G$1" pin="2"/>
+<wire x1="104.14" y1="58.42" x2="104.14" y2="50.8" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(INT1)PD3"/>
+<wire x1="104.14" y1="50.8" x2="76.2" y2="50.8" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>

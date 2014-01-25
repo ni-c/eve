@@ -15,4 +15,14 @@
 */
 void rx_init(void);
 
+/*
+ * Enable the RX module
+ */
+void rx_enable(void);
+
+/*
+ * Disable the RX module
+ */
+void rx_disable(void);
+
 #endif /* RX_H_ */

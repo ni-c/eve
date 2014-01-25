@@ -29,6 +29,8 @@
 #ifndef _I2CSLAVE_H_
 #define _I2CSLAVE_H_
 
+#include "main.h"
+
 /**
  * Initialize slave
  *
@@ -36,14 +38,13 @@
  */
 void i2c_init(uint8_t address);
 
-#define buffer_size 16 /*!< I2C buffer size (in bytes (2..254)) */
-volatile uint8_t i2c_buffer[buffer_size]; /*!< I2C buffer */
+volatile uint8_t i2c_buffer[I2C_BUFFER_SIZE]; /*!< I2C buffer */
 volatile uint8_t buffer_adr; /*!< Virtual buffer address register */
 
-#if 	(buffer_size > 254)
+#if 	(I2C_BUFFER_SIZE > 254)
 #error Buffer to big! 254 bytes max.
 
-#elif 	(buffer_size < 2)
+#elif 	(I2C_BUFFER_SIZE < 2)
 #error Buffer to small! 2 bytes min.
 #endif
 
