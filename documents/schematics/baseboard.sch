@@ -6962,7 +6962,7 @@ Source: http://www.analog.com/UploadedFiles/Data_Sheets/AD780.pdf</description>
 <part name="TB6560" library="con-ml" deviceset="ML10" device=""/>
 <part name="TB1" library="con-ml" deviceset="ML10" device=""/>
 <part name="J1" library="con-amp" deviceset="350792-1" device=""/>
-<part name="IC1" library="ic-package" deviceset="DIL8" device="" value="MAX 603"/>
+<part name="IC1" library="ic-package" deviceset="DIL8" device="" value="MAX 604"/>
 <part name="C5" library="capacitor-wima" deviceset="C" device="2.5/2" value="10µF"/>
 <part name="C6" library="capacitor-wima" deviceset="C" device="2.5/2" value="100nF"/>
 <part name="C7" library="capacitor-wima" deviceset="C" device="2.5/2" value="220µF"/>
