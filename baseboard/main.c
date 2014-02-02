@@ -65,7 +65,7 @@ int main(void) {
 
     // Set debug LED (port 1) to output
     DDRD |= (1 << DDD0);
-    PORTD |= (1 << PD0);
+    PORTD &= ~(1 << PD0);
 
     init();
 
