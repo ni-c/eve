@@ -16,7 +16,7 @@ try:
 
     threadLock.acquire()
     bb.setMotorSteps(0, 30000).setMotorSpeed(0, 10).setMotorSteps(1, 30000).setMotorSpeed(1, 20).setMotorSteps(2, 30000).setMotorSpeed(2, 30)
-    bb.disableRC()
+    bb.enableRC()
     threadLock.release()
     
     class MyHTTPServer(HTTPServer):

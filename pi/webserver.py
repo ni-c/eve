@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 import json
+from os import curdir, sep
 from BaseHTTPServer import BaseHTTPRequestHandler
 
 class JsonApi(BaseHTTPRequestHandler):
@@ -34,4 +35,22 @@ class JsonApi(BaseHTTPRequestHandler):
                                 }, sort_keys=True)
             self.wfile.write(result)
         else:
-            self.send_error(404, "Not Found")
+            try:
+                path = self.path.replace('..', '')
+                if path == '/':
+                    path = '/index.html'
+                f = open(curdir + sep + 'client' + path)
+                self.send_response(200)
+                if path.endswith('.html'):
+                    self.send_header('Content-type', 'text/html')
+                elif path.endswith('.js') or path.endswith('.js.map'):
+                    self.send_header('Content-type', 'application/javascript')
+                elif path.endswith('.css'):
+                    self.send_header('Content-type', 'text/css')
+                else:
+                    self.send_error(404, "Not Found")
+                self.end_headers()
+                self.wfile.write(f.read())
+                f.close()
+            except:
+                self.send_error(404, "Not Found")

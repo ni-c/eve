@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import threading, smbus
+import threading, smbus, time
 
 MOTOR_STEPS_POS = [2, 4, 6]
 MOTOR_STEPS_ADD_POS = [14, 16, 18]
@@ -97,3 +97,4 @@ class I2C (threading.Thread):
             if self.flushNeeded:
                 self.flush()
             self.update()
+            time.sleep(0.05)
