@@ -13,33 +13,144 @@
   </head>
   <body ng-controller="EveCtrl">
   	<div class="container">
-      <h1>Eve Telemetrics</h1>
-  	  <form class="form-horizontal" role="form">
-	    <div class="form-group">
-	      <label for="rcChannel0" class="col-sm-4 control-label">Channel 0</label>
-    	  <div class="col-sm-8">
-	        <input type="text" class="form-control" id="rcChannel0" disabled="disabled" ng-model="data.rc.channel0"></input>
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="rcChannel1" class="col-sm-4 control-label">Channel 1</label>
-    	  <div class="col-sm-8">
-	        <input type="text" class="form-control" id="rcChannel0" disabled="disabled" ng-model="data.rc.channel1"></input>
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="rcChannel2" class="col-sm-4 control-label">Channel 2</label>
-    	  <div class="col-sm-8">
-	        <input type="text" class="form-control" id="rcChannel0" disabled="disabled" ng-model="data.rc.channel2"></input>
-	      </div>
-	    </div>
-	    <div class="form-group">
-	      <label for="rcChannel3" class="col-sm-4 control-label">Channel 3</label>
-    	  <div class="col-sm-8">
-	        <input type="text" class="form-control" id="rcChannel0" disabled="disabled" ng-model="data.rc.channel3"></input>
-	      </div>
-	    </div>
-	  </form>
+  	  <div class="row">
+  	    <div class="col-xs-12">
+          <h1>Eve Telemetrics</h1>
+        </div>
+  	  </div>
+  	  <div class="row">
+        <div class="col-sm-3">
+          <h2>Register</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  Description
+                </th>
+                <th class="text-right">
+                  Enabled
+                </th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr>
+                <td>
+                  RC
+                </td>
+                <td class="text-right">
+                  <input type="checkbox" ng-model="data.enabled.rc"></input>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+  	  
+  	  
+        <div class="col-sm-3">
+          <h2>RC</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  Channel
+                </th>
+                <th class="text-right">
+                  Value
+                </th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr>
+                <td>
+                  #0
+                </td>
+                <td class="text-right">
+                	{{data.rc.channel0}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  #1
+                </td>
+                <td class="text-right">
+                	{{data.rc.channel1}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  #2
+                </td>
+                <td class="text-right">
+                	{{data.rc.channel2}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  #3
+                </td>
+                <td class="text-right">
+                	{{data.rc.channel3}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <div class="col-sm-3">
+          <h2>Motors</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  Motor
+                </th>
+                <th class="text-right">
+                  Steps
+                </th>
+                <th class="text-right">
+                  Speed
+                </th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr>
+                <td>
+                  #0
+                </td>
+                <td class="text-right">
+                	{{data.motors.motor0.steps}}
+                </td>
+                <td class="text-right">
+                	{{data.motors.motor0.speed}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  #1
+                </td>
+                <td class="text-right">
+                	{{data.motors.motor1.steps}}
+                </td>
+                <td class="text-right">
+                	{{data.motors.motor1.speed}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  #2
+                </td>
+                <td class="text-right">
+                	{{data.motors.motor2.steps}}
+                </td>
+                <td class="text-right">
+                	{{data.motors.motor2.speed}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+  	  </div>
     </div>
   </body>
 </html>

@@ -32,6 +32,7 @@
 #include 	<avr/io.h>
 #include 	<avr/interrupt.h>
 #include 	<avr/pgmspace.h>
+#include    <avr/wdt.h>
 
 #include    "main.h"
 #include    "i2cslave.h"
@@ -63,13 +64,18 @@ void init(void) {
 
 int main(void) {
 
+
     // Set debug LED (port 1) to output
     DDRD |= (1 << DDD0);
     PORTD &= ~(1 << PD0);
 
     init();
 
+    wdt_enable(3);
+
     while (1) {
+
+        wdt_reset();
 
         // If new I2C data was written into the mcu
         if (i2c_received_data()) {

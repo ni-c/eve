@@ -10,7 +10,7 @@
 #ifndef MOTOR_H_
 #define MOTOR_H_
 
-#define TIMER_COMPARE 16 /*!< Timer compare */
+#define TIMER_COMPARE 32 /*!< Timer compare */
 
 /**
  * Motor initialization

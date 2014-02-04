@@ -30,7 +30,7 @@ ISR( TIMER1_COMPA_vect ) {
 }
 
 /*
- * Externat interrupt INT0
+ * External interrupt INT0
  */
 ISR( INT0_vect ) {
     // Read pulseTime in µs
@@ -41,12 +41,12 @@ ISR( INT0_vect ) {
 
     // pulse > 3000 µs => Sync
     if (pulseTime > 3000) {
+        // Start from the beginning
+        channelIndex = 0;
         // Write channelvalues to I2C buffer
         for (int i = 0; i < 8; ++i) {
             i2c_buffer[i + I2C_RX_BUFFER_OFFSET] = channelPos[i];
         }
-        // Start from the beginning
-        channelIndex = 0;
     } else if (channelIndex < 8) {
         // Save channel position and increase servo index
         channelPos[channelIndex++] = (pulseTime - 1000) / 5;

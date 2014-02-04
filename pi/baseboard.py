@@ -97,4 +97,4 @@ class I2C (threading.Thread):
             if self.flushNeeded:
                 self.flush()
             self.update()
-            time.sleep(0.05)
+            time.sleep(0.1)
