@@ -5,7 +5,26 @@ from os import curdir, sep
 from BaseHTTPServer import BaseHTTPRequestHandler
 
 class JsonApi(BaseHTTPRequestHandler):
-
+    
+    def do_POST(self):
+        if self.path == '/data.json':
+            try:
+                content_len = int(self.headers.getheader('content-length'))
+                post_body = self.rfile.read(content_len)
+                post_data = json.loads(post_body)
+                try:
+                    if post_data['enabled']['rc']:
+                        self.server.bb.enableRC()
+                    else:
+                        self.server.bb.disableRC()
+                except:
+                    pass
+                self.send_response(200)
+            except:
+                self.send_error(400, "Bad Request")
+        else:
+            self.send_error(404, "Not Found")
+            
     def do_GET(self):
         if self.path == '/data.json':
             self.send_response(200)
@@ -54,3 +73,7 @@ class JsonApi(BaseHTTPRequestHandler):
                 f.close()
             except:
                 self.send_error(404, "Not Found")
+                
+    def log_message(self, format, *args):
+        return
+

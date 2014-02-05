@@ -10,4 +10,13 @@ eveApp.controller('EveCtrl', function ($scope, $http) {
   }
   refresh();
   
+  $scope.toggleRc = function() {
+    $http({
+      url: '/data.json',
+      method: "POST",
+      data: {'enabled': {'rc': $scope.data.enabled.rc}},
+      headers: {'Content-Type': 'application/json'}
+    });
+  }
+  
 });

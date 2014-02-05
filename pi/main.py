@@ -15,10 +15,10 @@ try:
     bb.start()
 
     threadLock.acquire()
-    bb.setMotorSteps(0, 30000).setMotorSpeed(0, 10).setMotorSteps(1, 30000).setMotorSpeed(1, 20).setMotorSteps(2, 30000).setMotorSpeed(2, 30)
-    bb.enableRC()
+    bb.setMotorSteps(0, 0).setMotorSpeed(0, 0).setMotorSteps(0, 0).setMotorSpeed(0, 0).setMotorSteps(0, 0).setMotorSpeed(0, 0)
+    bb.disableRC()
     threadLock.release()
-    
+
     class MyHTTPServer(HTTPServer):
     
         def __init__(self, *args, **kw):
