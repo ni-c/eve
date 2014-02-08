@@ -34,7 +34,7 @@ ISR( TIMER1_COMPA_vect ) {
  */
 ISR( INT0_vect ) {
     // Read pulseTime in µs
-    uint16_t pulseTime = pulse * 200 + 4 * TCNT1 / 5;
+    uint16_t pulseTime = (pulse * 200) + (TCNT1 * 10 / 25);
     // Reset Timer
     TCNT1 = 0;
     pulse = 0;
@@ -49,7 +49,7 @@ ISR( INT0_vect ) {
         }
     } else if (channelIndex < 8) {
         // Save channel position and increase servo index
-        channelPos[channelIndex++] = (pulseTime - 1000) / 5;
+        channelPos[channelIndex++] = (pulseTime - 1000) / 4;
     }
 }
 
