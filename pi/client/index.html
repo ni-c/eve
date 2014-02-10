@@ -97,6 +97,7 @@
         
         <div class="col-sm-3">
           <h2>Motors</h2>
+          <img src="/img/motors.png"></img>
           <table class="table table-striped">
             <thead>
               <tr>
@@ -108,6 +109,9 @@
                 </th>
                 <th class="text-right">
                   Speed
+                </th>
+                <th class="text-right">
+                  Dir
                 </th>
               </tr>
             </thead>
@@ -122,6 +126,9 @@
                 <td class="text-right">
                 	{{data.motors.motor0.speed}}
                 </td>
+                <td class="text-right">
+                	{{data.motors.motor0.direction}}
+                </td>
               </tr>
               <tr>
                 <td>
@@ -132,6 +139,9 @@
                 </td>
                 <td class="text-right">
                 	{{data.motors.motor1.speed}}
+                </td>
+                <td class="text-right">
+                	{{data.motors.motor1.direction}}
                 </td>
               </tr>
               <tr>
@@ -144,11 +154,13 @@
                 <td class="text-right">
                 	{{data.motors.motor2.speed}}
                 </td>
+                <td class="text-right">
+                	{{data.motors.motor2.direction}}
+                </td>
               </tr>
             </tbody>
           </table>
         </div>
-
   	  </div>
     </div>
   </body>

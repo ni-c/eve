@@ -6,6 +6,7 @@ MOTOR_STEPS_POS = [2, 4, 6]
 MOTOR_STEPS_ADD_POS = [14, 16, 18]
 MOTOR_SPEED_POS = [8, 10, 12]
 RC_CHANNEL_POS = [20, 21, 22, 23]
+RC_OFFSET = [114, 114, 114, 114]
 
 class I2C (threading.Thread):
    
@@ -64,8 +65,19 @@ class I2C (threading.Thread):
     def getMotorSpeed(self, motor):
         return self.merge(self.buffer[MOTOR_SPEED_POS[motor]], self.buffer[MOTOR_SPEED_POS[motor] + 1])
     
+    def setMotorDirection(self, motor, direction):
+        self.buffer[0] = self.setBit(self.buffer[0], 2 + motor, direction)
+        self.flushNeeded = True
+        return self    
+    
+    def getMotorDirection(self, motor):
+        return self.getBit(self.buffer[0], 2 + motor)
+            
     def getRCChannel(self, channel):
-        return self.buffer[RC_CHANNEL_POS[channel]]
+        return self.buffer[RC_CHANNEL_POS[channel]] - RC_OFFSET[channel]
+
+    def getRCChannels(self):
+        return self.buffer[RC_CHANNEL_POS[0]] - RC_OFFSET[0], self.buffer[RC_CHANNEL_POS[1]] - RC_OFFSET[1], self.buffer[RC_CHANNEL_POS[2]] - RC_OFFSET[2], self.buffer[RC_CHANNEL_POS[3]] - RC_OFFSET[3]
     
     def update(self):
         self.buffer = self.bus.read_i2c_block_data(self.address, 0)
