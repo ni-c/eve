@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import smbus, sys, threading, time
+import sys, threading, time
 from BaseHTTPServer import HTTPServer
 
 import baseboard, webserver, motors
@@ -20,7 +20,7 @@ try:
     threadLock.release()
 
     motors = motors.Motors(bb)
-    motors.start()
+    motors.start()    
 
     class MyHTTPServer(HTTPServer):
         def __init__(self, *args, **kw):

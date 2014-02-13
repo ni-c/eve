@@ -50,11 +50,12 @@ class JsonApi(BaseHTTPRequestHandler):
                                     'steps': self.server.bb.getMotorSteps(2),
                                     'speed': self.server.bb.getMotorSpeed(2),
                                     'direction': self.server.bb.getMotorDirection(2)
-                                  },
+                                  }
                                 }, 'enabled': {
                                     'rc': self.server.bb.isRCEnabled()
-                                  }
-                                }, sort_keys=True)
+                                }, 'voltage': {
+                                    'channel0': self.server.bb.getVoltage(0)
+                                }}, sort_keys=True)
             self.wfile.write(result)
         else:
             try:

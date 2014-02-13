@@ -43,6 +43,30 @@
               </tr>
             </tbody>
           </table>
+          
+          <h2>Battery</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  Type
+                </th>
+                <th class="text-right">
+                  Voltage
+                </th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr>
+                <td>
+                  Electronic
+                </td>
+                <td class="text-right">
+                  {{data.voltage.channel0 | number:2}} V
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
   	  
         <div class="col-sm-3">

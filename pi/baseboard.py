@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import threading, smbus, time
+import threading, smbus, time, wiringpi2, spidev
 
 MOTOR_STEPS_POS = [2, 4, 6]
 MOTOR_STEPS_ADD_POS = [14, 16, 18]
@@ -17,6 +17,24 @@ class I2C (threading.Thread):
         self.address = address
         self.flushNeeded = False
         self.isActive = True
+
+        # Initialize GPIO
+        wiringpi2.wiringPiSetupGpio()
+        # AD7705 Reset
+        wiringpi2.pinMode(23,1)
+        wiringpi2.digitalWrite(23,1)
+        # DA7705 CS
+        wiringpi2.pinMode(24,1)
+        wiringpi2.digitalWrite(24,0)
+        
+        # Setup SPI
+        self.spi = spidev.SpiDev()
+        self.spi.open(0,0)
+
+        # Initialize AD7705 
+        self.spi.xfer2([0xff, 0xff, 0xff, 0xff, 0xff])
+        self.spi.xfer2([0x20, 0x0c, 0x10, 0x40, 0x08])
+        
         self.update()
       
     def split(self, x):
@@ -100,6 +118,10 @@ class I2C (threading.Thread):
     
     def isRCEnabled(self):
         return self.getBit(self.buffer[0], 1)
+    
+    def getVoltage(self, channel):
+        register = self.spi.xfer2([0x38, 0x00, 0x00])
+        return (self.merge(register[1], register[2]) - 32768) * 0.00079107
     
     def stop(self):
         self.isActive = False

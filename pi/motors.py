@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import threading, smbus, time
+import threading, time
 
 class Motors (threading.Thread):
 
