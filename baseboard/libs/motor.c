@@ -89,14 +89,35 @@ void motor_update(void) {
     }
 }
 
+void motor_update_register(uint8_t *control_register) {
+    // Bit 2 in control Direction Motor X;
+    if ((control_register[0] >> 2) & 0x01) {
+        PORTD &= ~(1 << PD0);
+    } else {
+        PORTD |= (1 << PD0);
+    }
+    // Bit 3 in control Direction Motor Y;
+    if ((control_register[0] >> 3) & 0x01) {
+        PORTD &= ~(1 << PD1);
+    } else {
+        PORTD |= (1 << PD1);
+    }
+    // Bit 4 in control Direction Motor Z;
+    if ((control_register[0] >> 4) & 0x01) {
+        PORTB &= ~(1 << PB4);
+    } else {
+        PORTB |= (1 << PB4);
+    }
+}
+
 /**
  * Motor initialization
  */
 void motor_init(void) {
 
-    // Set ports B2 (OC0A), B3 (OC1A) and D5 (OC0B) to output
-    DDRB |= ((1 << DDB2) | (1 << DDB3));
-    DDRD |= (1 << DDD5);
+    // Set ports to output
+    DDRB |= ((1 << DDB2) | (1 << DDB3) | (1 << DDB4));
+    DDRD |= ((1 << DDD0) | (1 << DDD1) | (1 << DDD4) | (1 << DDD5));
 
     // CTC Modus
     TCCR0A = (1 << WGM01);
@@ -109,4 +130,7 @@ void motor_init(void) {
 
     // Enable interrupt
     TIMSK |= (1 << OCIE0A);
+
+    // Enable TB6560
+    PORTD |= (1 << PD5);
 }
