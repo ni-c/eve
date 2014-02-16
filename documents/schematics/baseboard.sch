@@ -7465,94 +7465,6 @@ Source: http://www.analog.com/UploadedFiles/Data_Sheets/AD780.pdf</description>
 <wire x1="200.66" y1="30.48" x2="170.18" y2="30.48" width="0.1524" layer="91"/>
 </segment>
 </net>
-<net name="N$7" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="(AIN0)PB0"/>
-<pinref part="TB6560" gate="G$1" pin="9"/>
-<wire x1="170.18" y1="48.26" x2="185.42" y2="48.26" width="0.1524" layer="91"/>
-<wire x1="185.42" y1="48.26" x2="185.42" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$8" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="(AIN1)PB1"/>
-<pinref part="TB6560" gate="G$1" pin="7"/>
-<wire x1="170.18" y1="50.8" x2="187.96" y2="50.8" width="0.1524" layer="91"/>
-<wire x1="187.96" y1="50.8" x2="187.96" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$9" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="(OC0A)PB2"/>
-<pinref part="TB6560" gate="G$1" pin="5"/>
-<wire x1="170.18" y1="53.34" x2="190.5" y2="53.34" width="0.1524" layer="91"/>
-<wire x1="190.5" y1="53.34" x2="190.5" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$10" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="(OC1A)PB3"/>
-<pinref part="TB6560" gate="G$1" pin="3"/>
-<wire x1="170.18" y1="55.88" x2="193.04" y2="55.88" width="0.1524" layer="91"/>
-<wire x1="193.04" y1="55.88" x2="193.04" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$11" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="(OC1B)PB4"/>
-<pinref part="TB6560" gate="G$1" pin="1"/>
-<wire x1="170.18" y1="58.42" x2="195.58" y2="58.42" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="58.42" x2="195.58" y2="25.4" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$6" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="(RXD)PD0"/>
-<wire x1="170.18" y1="22.86" x2="170.18" y2="0" width="0.1524" layer="91"/>
-<pinref part="TB6560" gate="G$1" pin="2"/>
-<wire x1="170.18" y1="0" x2="195.58" y2="0" width="0.1524" layer="91"/>
-<wire x1="195.58" y1="0" x2="195.58" y2="10.16" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$12" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="(TXD)PD1"/>
-<wire x1="170.18" y1="25.4" x2="172.72" y2="25.4" width="0.1524" layer="91"/>
-<wire x1="172.72" y1="25.4" x2="172.72" y2="2.54" width="0.1524" layer="91"/>
-<pinref part="TB6560" gate="G$1" pin="4"/>
-<wire x1="172.72" y1="2.54" x2="193.04" y2="2.54" width="0.1524" layer="91"/>
-<wire x1="193.04" y1="2.54" x2="193.04" y2="10.16" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$13" class="0">
-<segment>
-<pinref part="TB6560" gate="G$1" pin="6"/>
-<wire x1="190.5" y1="10.16" x2="190.5" y2="5.08" width="0.1524" layer="91"/>
-<wire x1="190.5" y1="5.08" x2="175.26" y2="5.08" width="0.1524" layer="91"/>
-<wire x1="175.26" y1="5.08" x2="175.26" y2="33.02" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="(T0)PD4"/>
-<wire x1="175.26" y1="33.02" x2="170.18" y2="33.02" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$14" class="0">
-<segment>
-<pinref part="U$1" gate="G$1" pin="(T1)PD5"/>
-<wire x1="170.18" y1="35.56" x2="177.8" y2="35.56" width="0.1524" layer="91"/>
-<wire x1="177.8" y1="35.56" x2="177.8" y2="7.62" width="0.1524" layer="91"/>
-<wire x1="177.8" y1="7.62" x2="187.96" y2="7.62" width="0.1524" layer="91"/>
-<pinref part="TB6560" gate="G$1" pin="8"/>
-<wire x1="187.96" y1="7.62" x2="187.96" y2="10.16" width="0.1524" layer="91"/>
-</segment>
-</net>
-<net name="N$23" class="0">
-<segment>
-<pinref part="TB6560" gate="G$1" pin="10"/>
-<wire x1="185.42" y1="10.16" x2="180.34" y2="10.16" width="0.1524" layer="91"/>
-<wire x1="180.34" y1="10.16" x2="180.34" y2="38.1" width="0.1524" layer="91"/>
-<pinref part="U$1" gate="G$1" pin="(ICP)PD6"/>
-<wire x1="180.34" y1="38.1" x2="170.18" y2="38.1" width="0.1524" layer="91"/>
-</segment>
-</net>
 <net name="N$24" class="0">
 <segment>
 <pinref part="TB1" gate="G$1" pin="9"/>
@@ -7860,6 +7772,95 @@ Source: http://www.analog.com/UploadedFiles/Data_Sheets/AD780.pdf</description>
 <wire x1="53.34" y1="88.9" x2="53.34" y2="139.7" width="0.1524" layer="91"/>
 <pinref part="U$3" gate="G$1" pin="CS"/>
 <wire x1="53.34" y1="139.7" x2="66.04" y2="139.7" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$6" class="0">
+<segment>
+<pinref part="TB6560" gate="G$1" pin="1"/>
+<wire x1="195.58" y1="25.4" x2="195.58" y2="33.02" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(T0)PD4"/>
+<wire x1="195.58" y1="33.02" x2="170.18" y2="33.02" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$7" class="0">
+<segment>
+<pinref part="TB6560" gate="G$1" pin="3"/>
+<wire x1="193.04" y1="25.4" x2="193.04" y2="35.56" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(T1)PD5"/>
+<wire x1="193.04" y1="35.56" x2="170.18" y2="35.56" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$8" class="0">
+<segment>
+<pinref part="TB6560" gate="G$1" pin="5"/>
+<wire x1="190.5" y1="25.4" x2="190.5" y2="58.42" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(OC1B)PB4"/>
+<wire x1="190.5" y1="58.42" x2="170.18" y2="58.42" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$9" class="0">
+<segment>
+<pinref part="TB6560" gate="G$1" pin="7"/>
+<wire x1="187.96" y1="25.4" x2="187.96" y2="55.88" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(OC1A)PB3"/>
+<wire x1="187.96" y1="55.88" x2="170.18" y2="55.88" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$10" class="0">
+<segment>
+<pinref part="TB6560" gate="G$1" pin="9"/>
+<wire x1="185.42" y1="25.4" x2="185.42" y2="53.34" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(OC0A)PB2"/>
+<wire x1="185.42" y1="53.34" x2="170.18" y2="53.34" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$11" class="0">
+<segment>
+<pinref part="TB6560" gate="G$1" pin="10"/>
+<wire x1="185.42" y1="10.16" x2="185.42" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="185.42" y1="7.62" x2="180.34" y2="7.62" width="0.1524" layer="91"/>
+<wire x1="180.34" y1="7.62" x2="180.34" y2="50.8" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(AIN1)PB1"/>
+<wire x1="180.34" y1="50.8" x2="170.18" y2="50.8" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$12" class="0">
+<segment>
+<pinref part="TB6560" gate="G$1" pin="8"/>
+<wire x1="187.96" y1="10.16" x2="187.96" y2="5.08" width="0.1524" layer="91"/>
+<wire x1="187.96" y1="5.08" x2="177.8" y2="5.08" width="0.1524" layer="91"/>
+<wire x1="177.8" y1="5.08" x2="177.8" y2="48.26" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(AIN0)PB0"/>
+<wire x1="177.8" y1="48.26" x2="170.18" y2="48.26" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$13" class="0">
+<segment>
+<pinref part="TB6560" gate="G$1" pin="6"/>
+<wire x1="190.5" y1="10.16" x2="190.5" y2="2.54" width="0.1524" layer="91"/>
+<wire x1="190.5" y1="2.54" x2="175.26" y2="2.54" width="0.1524" layer="91"/>
+<wire x1="175.26" y1="2.54" x2="175.26" y2="38.1" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(ICP)PD6"/>
+<wire x1="175.26" y1="38.1" x2="170.18" y2="38.1" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$14" class="0">
+<segment>
+<pinref part="TB6560" gate="G$1" pin="4"/>
+<wire x1="193.04" y1="10.16" x2="193.04" y2="0" width="0.1524" layer="91"/>
+<wire x1="193.04" y1="0" x2="172.72" y2="0" width="0.1524" layer="91"/>
+<wire x1="172.72" y1="0" x2="172.72" y2="25.4" width="0.1524" layer="91"/>
+<pinref part="U$1" gate="G$1" pin="(TXD)PD1"/>
+<wire x1="172.72" y1="25.4" x2="170.18" y2="25.4" width="0.1524" layer="91"/>
+</segment>
+</net>
+<net name="N$23" class="0">
+<segment>
+<pinref part="U$1" gate="G$1" pin="(RXD)PD0"/>
+<wire x1="170.18" y1="22.86" x2="170.18" y2="-2.54" width="0.1524" layer="91"/>
+<pinref part="TB6560" gate="G$1" pin="2"/>
+<wire x1="170.18" y1="-2.54" x2="195.58" y2="-2.54" width="0.1524" layer="91"/>
+<wire x1="195.58" y1="-2.54" x2="195.58" y2="10.16" width="0.1524" layer="91"/>
 </segment>
 </net>
 </nets>
