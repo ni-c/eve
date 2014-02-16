@@ -38,20 +38,24 @@ class JsonApi(BaseHTTPRequestHandler):
                                 }, 'motors': {
                                   'motor0': {
                                     'steps': self.server.bb.getMotorSteps(0),
-                                    'speed': self.server.bb.getMotorSpeed(0)  
+                                    'speed': self.server.bb.getMotorSpeed(0),
+                                    'direction': self.server.bb.getMotorDirection(0)
                                   },
                                   'motor1': {
                                     'steps': self.server.bb.getMotorSteps(1),
-                                    'speed': self.server.bb.getMotorSpeed(1)  
+                                    'speed': self.server.bb.getMotorSpeed(1),
+                                    'direction': self.server.bb.getMotorDirection(1)
                                   },
                                   'motor2': {
                                     'steps': self.server.bb.getMotorSteps(2),
-                                    'speed': self.server.bb.getMotorSpeed(2)  
-                                  },
+                                    'speed': self.server.bb.getMotorSpeed(2),
+                                    'direction': self.server.bb.getMotorDirection(2)
+                                  }
                                 }, 'enabled': {
                                     'rc': self.server.bb.isRCEnabled()
-                                  }
-                                }, sort_keys=True)
+                                }, 'voltage': {
+                                    'channel0': self.server.bb.getVoltage(0)
+                                }}, sort_keys=True)
             self.wfile.write(result)
         else:
             try:
@@ -66,6 +70,8 @@ class JsonApi(BaseHTTPRequestHandler):
                     self.send_header('Content-type', 'application/javascript')
                 elif path.endswith('.css'):
                     self.send_header('Content-type', 'text/css')
+                elif path.endswith('.png'):
+                    self.send_header('Content-type', 'image/png')
                 else:
                     self.send_error(404, "Not Found")
                 self.end_headers()

@@ -1,9 +1,9 @@
 #!/usr/bin/python
 
-import smbus, sys, threading, time
+import sys, threading, time
 from BaseHTTPServer import HTTPServer
 
-import baseboard, webserver
+import baseboard, webserver, motors
 
 try:
 
@@ -19,12 +19,13 @@ try:
     bb.disableRC()
     threadLock.release()
 
+    motors = motors.Motors(bb)
+    motors.start()    
+
     class MyHTTPServer(HTTPServer):
-    
         def __init__(self, *args, **kw):
             HTTPServer.__init__(self, *args, **kw)
             self.bb = bb
-    
     server = MyHTTPServer(('', 8080), webserver.JsonApi)
     server.serve_forever()
         
@@ -34,4 +35,5 @@ try:
 except (KeyboardInterrupt, SystemExit):
     server.socket.close()
     bb.stop()
+    motors.stop()
     sys.exit()
