@@ -65,8 +65,6 @@ void init(void) {
 int main(void) {
 
 
-    // Set debug LED (port 1) to output
-    DDRD |= (1 << DDD0);
     PORTD &= ~(1 << PD0);
 
     init();
@@ -91,12 +89,8 @@ int main(void) {
                     rx_disable();
                 }
 
-                // Bit 2 in control register 0 = Debug LED;
-                if ((control_register[0] >> 1) & 0x01) {
-                    PORTD &= ~(1 << PD0);
-                } else {
-                    PORTD |= (1 << PD0);
-                }
+                motor_update_register(control_register);
+
             }
 
             // Update motor vars

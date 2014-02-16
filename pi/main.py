@@ -15,7 +15,7 @@ try:
     bb.start()
 
     threadLock.acquire()
-    bb.setMotorSteps(0, 0).setMotorSpeed(0, 0).setMotorSteps(0, 0).setMotorSpeed(0, 0).setMotorSteps(0, 0).setMotorSpeed(0, 0)
+    bb.setMotorSteps(0, 10000).setMotorSpeed(0, 0).setMotorSteps(1, 10000).setMotorSpeed(1, 0).setMotorSteps(2, 10000).setMotorSpeed(2, 0)
     bb.disableRC()
     threadLock.release()
 
