@@ -22,4 +22,9 @@ void motor_init(void);
  */
 void motor_update(void);
 
+/**
+ * Update the motor directions
+ */
+void motor_update_register(volatile uint8_t *control_register);
+
 #endif /* MOTOR_H_ */

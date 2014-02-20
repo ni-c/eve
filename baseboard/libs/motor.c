@@ -89,7 +89,10 @@ void motor_update(void) {
     }
 }
 
-void motor_update_register(uint8_t *control_register) {
+/**
+ * Update the motor directions
+ */
+void motor_update_register(volatile uint8_t *control_register) {
     // Bit 2 in control Direction Motor X;
     if ((control_register[0] >> 2) & 0x01) {
         PORTD &= ~(1 << PD0);
@@ -116,8 +119,8 @@ void motor_update_register(uint8_t *control_register) {
 void motor_init(void) {
 
     // Set ports to output
-    DDRB |= ((1 << DDB2) | (1 << DDB3) | (1 << DDB4));
-    DDRD |= ((1 << DDD0) | (1 << DDD1) | (1 << DDD4) | (1 << DDD5));
+    DDRB |= (1 << DDB2) | (1 << DDB3) | (1 << DDB4);
+    DDRD |= (1 << DDD0) | (1 << DDD1) | (1 << DDD5);
 
     // CTC Modus
     TCCR0A = (1 << WGM01);

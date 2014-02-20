@@ -8,9 +8,9 @@ import baseboard, webserver, motors
 try:
 
     threadLock = threading.Lock()
-    
+
     print "eve running..."
-    
+
     bb = baseboard.I2C(1, 0x1a)
     bb.start()
 
@@ -20,7 +20,7 @@ try:
     threadLock.release()
 
     motors = motors.Motors(bb)
-    motors.start()    
+    motors.start()
 
     class MyHTTPServer(HTTPServer):
         def __init__(self, *args, **kw):
@@ -28,7 +28,7 @@ try:
             self.bb = bb
     server = MyHTTPServer(('', 8080), webserver.JsonApi)
     server.serve_forever()
-        
+
     while True:
         time.sleep(1)
 
