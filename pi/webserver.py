@@ -19,6 +19,13 @@ class JsonApi(BaseHTTPRequestHandler):
                         self.server.bb.disableRC()
                 except:
                     pass
+                try:
+                    if post_data['enabled']['motor']:
+                        self.server.bb.enableMotor()
+                    else:
+                        self.server.bb.disableMotor()
+                except:
+                    pass
                 self.send_response(200)
             except:
                 self.send_error(400, "Bad Request")
@@ -52,7 +59,8 @@ class JsonApi(BaseHTTPRequestHandler):
                                     'direction': self.server.bb.getMotorDirection(2)
                                   }
                                 }, 'enabled': {
-                                    'rc': self.server.bb.isRCEnabled()
+                                    'rc': self.server.bb.isRCEnabled(),
+                                    'motor': self.server.bb.isMotorEnabled()
                                 }, 'voltage': {
                                     'channel0': self.server.bb.getVoltage(0)
                                 }}, sort_keys=True)

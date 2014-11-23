@@ -8,9 +8,15 @@ MOTOR_SPEED_POS = [8, 10, 12]
 RC_CHANNEL_POS = [20, 21, 22, 23]
 RC_OFFSET = [114, 114, 114, 114]
 
+threadLock = threading.Lock()
+
 class I2C (threading.Thread):
    
     def resetAD7705(self):
+        # Reset
+        wiringpi2.pinMode(23,1)
+        wiringpi2.digitalWrite(23,0)
+        wiringpi2.digitalWrite(23,1)
         # Initialize AD7705 
         self.spi.xfer2([0xff, 0xff, 0xff, 0xff, 0xff])
         self.spi.xfer2([0x20, 0x0c, 0x10, 0x40, 0x08])
@@ -26,9 +32,6 @@ class I2C (threading.Thread):
 
         # Initialize GPIO
         wiringpi2.wiringPiSetupGpio()
-        # AD7705 Reset
-        wiringpi2.pinMode(23,1)
-        wiringpi2.digitalWrite(23,1)
         # AD7705 CS
         wiringpi2.pinMode(24,1)
         wiringpi2.digitalWrite(24,0)
@@ -123,7 +126,20 @@ class I2C (threading.Thread):
     
     def isRCEnabled(self):
         return self.getBit(self.buffer[0], 1)
+     
+    def enableMotor(self):
+        self.buffer[0] = self.setBit(self.buffer[0], 5, 1)
+        self.flushNeeded = True
+        return self
     
+    def disableMotor(self):
+        self.buffer[0] = self.setBit(self.buffer[0], 5, 0)
+        self.flushNeeded = True
+        return self    
+    
+    def isMotorEnabled(self):
+        return self.getBit(self.buffer[0], 5)
+   
     def getVoltage(self, channel):
         register = self.spi.xfer2([0x38, 0x00, 0x00])
         voltage = (self.merge(register[1], register[2]) - 32768) * 0.00079107

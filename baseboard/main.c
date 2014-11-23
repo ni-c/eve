@@ -8,6 +8,10 @@
  *
  * I2C addresses:
  * 0x00-0x01: Control register (en- and disable function etc)
+ *   0x00 Bit 1: RX En/Disable
+ *   0x00 Bit 2: Direction Motor X
+ *   0x00 Bit 3: Direction Motor Y
+ *   0x00 Bit 4: Direction Motor Z
  * 0x02-0x03: Remaining steps stepper 1
  * 0x04-0x05: Remaining steps stepper 2
  * 0x06-0x07: Remaining steps stepper 3

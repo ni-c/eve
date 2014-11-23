@@ -127,6 +127,11 @@ void motor_update_register(volatile uint8_t *control_register) {
     } else {
         PORTB |= (1 << PB4);
     }
+    if ((control_register[0] >> 5) & 0x01) {
+        PORTD &= ~(1 << PD4);
+    } else {
+    	PORTD |= (1 << PD4);
+    }
 }
 
 /**
@@ -137,6 +142,9 @@ void motor_init(void) {
     // Set ports to output
     DDRB |= (1 << DDB2) | (1 << DDB3) | (1 << DDB4);
     DDRD |= (1 << DDD0) | (1 << DDD1) | (1 << DDD4) | (1 << DDD5);
+
+    // Disable TB6560
+    PORTD |= (1 << PD4);
 
     // CTC Modus
     TCCR0A = (1 << WGM01);
@@ -151,8 +159,4 @@ void motor_init(void) {
 
     // Enable interrupt
     TIMSK |= (1 << OCIE0A);
-
-    // Enable TB6560
-    PORTD &= ~(1 << PD4);
-
 }

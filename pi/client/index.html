@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap 101 Template</title>
+    <title>Eve</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <script src="js/jquery-2.1.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -17,6 +17,9 @@
   	    <div class="col-xs-12">
           <h1>Eve Telemetrics</h1>
         </div>
+  	  </div>
+  	  <div id="disconnected" class="alert alert-danger" role="alert" style="display: none;">
+  	    Connection lost. Trying to reconnect...
   	  </div>
   	  <div class="row">
         <div class="col-sm-3">
@@ -39,6 +42,14 @@
                 </td>
                 <td class="text-right">
                   <input type="checkbox" ng-model="data.enabled.rc" ng-change="toggleRc()"></input>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Motorcontroller
+                </td>
+                <td class="text-right">
+                  <input type="checkbox" ng-model="data.enabled.motor" ng-change="toggleMotor()"></input>
                 </td>
               </tr>
             </tbody>
