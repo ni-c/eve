@@ -5,6 +5,22 @@
  * @brief   Control unit for the stepper motors
  * @author  Willi Thiel (ni-c@ni-c.de)
  * @date    Jan 25, 2014
+ *
+ * Connection:
+ *
+ * AtTiny   Conn.    TB6550  Description
+ * =====================================
+ * PD4  ->  P1   ->   P1     Enable
+ * PD0  ->  P2   ->   P3     Dir X
+ * PD5  ->  P3   ->   P4     Step Y
+ * PD1  ->  P4   ->   P5     Dir Y
+ * PB4  ->  P5   ->   P7     Dir Z
+ * PD6  ->  P6   ->   P22    Ground
+ * PB3  ->  P7   ->   P6     Step Z
+ * PB0  ->  P8   ->
+ * PB2  ->  P9   ->   P2     Step X
+ * PB1  ->  P10  ->
+ *
  */
 
 #include <inttypes.h>
@@ -15,7 +31,7 @@
 #include "motor.h"
 #include "i2cslave.h"
 
-#define I2C_MOTOR_BUFFER_OFFSET 2 /*!< I2C offset for the RX buffer (where the RX buffer begins in the I2C buffer */
+#define I2C_MOTOR_BUFFER_OFFSET 2 /*!< I2C offset for the Motor buffer (where the Motor buffer begins in the I2C buffer */
 
 uint16_t speed_cnt[3] = { 0, 0, 0 };
 
@@ -120,13 +136,15 @@ void motor_init(void) {
 
     // Set ports to output
     DDRB |= (1 << DDB2) | (1 << DDB3) | (1 << DDB4);
-    DDRD |= (1 << DDD0) | (1 << DDD1) | (1 << DDD5);
+    DDRD |= (1 << DDD0) | (1 << DDD1) | (1 << DDD4) | (1 << DDD5);
 
     // CTC Modus
     TCCR0A = (1 << WGM01);
 
     // 64 prescale
-    TCCR0B |= (1 << CS01) | (1 << CS00);
+    //TCCR0B |= (1 << CS01) | (1 << CS00);
+
+    TCCR0B |= (1 << CS02) | (1 << CS00);
 
     // Output-Compare
     OCR0A = TIMER_COMPARE;
@@ -135,5 +153,6 @@ void motor_init(void) {
     TIMSK |= (1 << OCIE0A);
 
     // Enable TB6560
-    PORTD |= (1 << PD5);
+    PORTD &= ~(1 << PD4);
+
 }

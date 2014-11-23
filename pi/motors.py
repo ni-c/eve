@@ -14,6 +14,7 @@ class Motors (threading.Thread):
 
     def run(self):
         while self.isActive:
+            """
             if self.bb.isRCEnabled:
                 ch0, ch1, ch2, ch3 = self.bb.getRCChannels()
 
@@ -34,5 +35,5 @@ class Motors (threading.Thread):
                     else:
                         self.bb.setMotorDirection(i, 0)
                     self.bb.setMotorSpeed(i, 250 - v[i])
-            
+            """
             time.sleep(0.1)

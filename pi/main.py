@@ -15,8 +15,10 @@ try:
     bb.start()
 
     threadLock.acquire()
-    bb.setMotorSteps(0, 10000).setMotorSpeed(0, 0).setMotorSteps(1, 10000).setMotorSpeed(1, 0).setMotorSteps(2, 10000).setMotorSpeed(2, 0)
     bb.disableRC()
+    bb.setMotorSteps(0, 0).setMotorSpeed(0, 255).setMotorDirection(0, 0);
+    bb.setMotorSteps(1, 0).setMotorSpeed(1, 255).setMotorDirection(1, 0);
+    bb.setMotorSteps(2, 0).setMotorSpeed(2, 255).setMotorDirection(2, 0);
     threadLock.release()
 
     motors = motors.Motors(bb)
@@ -26,7 +28,7 @@ try:
         def __init__(self, *args, **kw):
             HTTPServer.__init__(self, *args, **kw)
             self.bb = bb
-    server = MyHTTPServer(('', 8080), webserver.JsonApi)
+    server = MyHTTPServer(('', 80), webserver.JsonApi)
     server.serve_forever()
 
     while True:

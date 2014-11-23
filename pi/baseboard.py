@@ -36,6 +36,7 @@ class I2C (threading.Thread):
         # Setup SPI
         self.spi = spidev.SpiDev()
         self.spi.open(0,0)
+        self.spi.max_speed_hz = 100000
         
         self.resetAD7705()
         
@@ -136,4 +137,4 @@ class I2C (threading.Thread):
             if self.flushNeeded:
                 self.flush()
             self.update()
-            time.sleep(0.1)
+            time.sleep(0.01)

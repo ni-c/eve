@@ -46,6 +46,10 @@ void init(void) {
     // Disable interrupts
     cli();
 
+    // PD6 -> TB6560 Ground
+    DDRD |= (1 << DDD6);
+    PORTD &= ~(1 << PD6);
+
     // TWI slave init
     i2c_init(I2CADDRESS);
 
@@ -64,15 +68,11 @@ void init(void) {
 
 int main(void) {
 
-
-    PORTD &= ~(1 << PD0);
-
     init();
 
     wdt_enable(3);
 
     while (1) {
-
         wdt_reset();
 
         // If new I2C data was written into the mcu
