@@ -262,8 +262,14 @@
               </tr>
             </tbody>
           </table>
-          <button ng-click="submit_control()">Submit</button>
+          <button ng-click="submit_control()" class="btn btn-success">Submit motor values</button>
   	  	</div>
+  	  </div>
+  	  <div class="row">
+		<div class="col-sm-9">
+		  <h2>Commands</h2>
+          <button ng-click="submit_shutdown()" class="btn btn-danger">Shutdown RaspberryPI</button>
+		</div>  	  
   	  </div>
     </div>
   </body>

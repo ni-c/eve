@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
-import json
-from os import curdir, sep
+import json, os
 from BaseHTTPServer import BaseHTTPRequestHandler
 
 class JsonApi(BaseHTTPRequestHandler):
@@ -39,6 +38,8 @@ class JsonApi(BaseHTTPRequestHandler):
                 self.server.bb.setMotorSteps(2, post_data['motor2']['steps']).setMotorSpeed(2, post_data['motor2']['speed']).setMotorDirection(2, post_data['motor2']['direction']);
             except:
                 self.send_error(400, "Bad Request")
+        elif self.path == '/shutdown.json':
+            os.system("sudo shutdown -h now")
         else:
             self.send_error(404, "Not Found")
             
@@ -80,7 +81,7 @@ class JsonApi(BaseHTTPRequestHandler):
                 path = self.path.replace('..', '')
                 if path == '/':
                     path = '/index.html'
-                f = open(curdir + sep + 'client' + path)
+                f = open(os.curdir + os.sep + 'client' + path)
                 self.send_response(200)
                 if path.endswith('.html'):
                     self.send_header('Content-type', 'text/html')

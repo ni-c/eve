@@ -79,4 +79,13 @@ eveApp.controller('EveCtrl', function ($scope, $http) {
       headers: {'Content-Type': 'application/json'}
     });
   }
+  
+  $scope.submit_shutdown = function() {
+    $http({
+      url: '/shutdown.json',
+      method: "POST",
+      data: {},
+      headers: {'Content-Type': 'application/json'}
+    });
+  }
 });
