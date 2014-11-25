@@ -1,6 +1,6 @@
 #!/usr/bin/python
 
-import threading, smbus, time, wiringpi2, spidev
+import threading, smbus, time, wiringpi2, spidev, log
 
 MOTOR_STEPS_POS = [2, 4, 6]
 MOTOR_STEPS_ADD_POS = [14, 16, 18]
@@ -23,6 +23,7 @@ class I2C (threading.Thread):
         return 1
    
     def __init__(self, bus, address):
+        log.debug("bb.init()");
         threading.Thread.__init__(self)
         self.buffer = []
         self.bus = smbus.SMBus(bus)
@@ -65,6 +66,7 @@ class I2C (threading.Thread):
         return ((v&(1<<index))!=0);
     
     def setMotorSteps(self, motor, steps):
+        log.debug("bb.setMotorSteps(%i, %i)" % (motor, steps));
         high, low = self.split(steps)
         self.buffer[MOTOR_STEPS_POS[motor]] = high
         self.buffer[MOTOR_STEPS_POS[motor] + 1] = low
@@ -72,6 +74,7 @@ class I2C (threading.Thread):
         return self
     
     def addMotorSteps(self, motor, steps):
+        log.debug("bb.addMotorSteps(%i, %i)" % (motor, steps));
         high, low = self.split(steps)
         self.buffer[MOTOR_STEPS_ADD_POS[motor]] = high
         self.buffer[MOTOR_STEPS_ADD_POS[motor] + 1] = low
@@ -82,6 +85,7 @@ class I2C (threading.Thread):
         return self.merge(self.buffer[MOTOR_STEPS_POS[motor]], self.buffer[MOTOR_STEPS_POS[motor] + 1])
     
     def setMotorSpeed(self, motor, speed):
+        log.debug("bb.setMotorSpeed(%i, %i)" % (motor, speed));
         high, low = self.split(speed)
         self.buffer[MOTOR_SPEED_POS[motor]] = high
         self.buffer[MOTOR_SPEED_POS[motor] + 1] = low
@@ -92,6 +96,7 @@ class I2C (threading.Thread):
         return self.merge(self.buffer[MOTOR_SPEED_POS[motor]], self.buffer[MOTOR_SPEED_POS[motor] + 1])
     
     def setMotorDirection(self, motor, direction):
+        log.debug("bb.setMotorDirection(%i, %i)" % (motor, direction));
         self.buffer[0] = self.setBit(self.buffer[0], 2 + motor, direction)
         self.flushNeeded = True
         return self    
@@ -100,7 +105,13 @@ class I2C (threading.Thread):
         return self.getBit(self.buffer[0], 2 + motor)
             
     def getRCChannel(self, channel):
-        return self.buffer[RC_CHANNEL_POS[channel]] - RC_OFFSET[channel]
+        if self.isRCEnabled(): 
+            if self.buffer[RC_CHANNEL_POS[0]] - RC_OFFSET[0] == -114 and self.buffer[RC_CHANNEL_POS[1]] - RC_OFFSET[1] == -114 and self.buffer[RC_CHANNEL_POS[2]] - RC_OFFSET[2] == -114 and self.buffer[RC_CHANNEL_POS[3]] - RC_OFFSET[3] == -114:
+                return 0
+            else:
+                return self.buffer[RC_CHANNEL_POS[channel]] - RC_OFFSET[channel]
+        else:
+            return 0
 
     def getRCChannels(self):
         return self.buffer[RC_CHANNEL_POS[0]] - RC_OFFSET[0], self.buffer[RC_CHANNEL_POS[1]] - RC_OFFSET[1], self.buffer[RC_CHANNEL_POS[2]] - RC_OFFSET[2], self.buffer[RC_CHANNEL_POS[3]] - RC_OFFSET[3]
@@ -115,11 +126,13 @@ class I2C (threading.Thread):
         return self
     
     def enableRC(self):
+        log.debug("bb.enableRC()");
         self.buffer[0] = self.setBit(self.buffer[0], 1, 1)
         self.flushNeeded = True
         return self
     
     def disableRC(self):
+        log.debug("bb.disableRC()");
         self.buffer[0] = self.setBit(self.buffer[0], 1, 0)
         self.flushNeeded = True
         return self    
@@ -128,11 +141,13 @@ class I2C (threading.Thread):
         return self.getBit(self.buffer[0], 1)
      
     def enableMotor(self):
+        log.debug("enableMotor()");
         self.buffer[0] = self.setBit(self.buffer[0], 5, 1)
         self.flushNeeded = True
         return self
     
     def disableMotor(self):
+        log.debug("bb.disableMotor()");
         self.buffer[0] = self.setBit(self.buffer[0], 5, 0)
         self.flushNeeded = True
         return self    
@@ -146,6 +161,10 @@ class I2C (threading.Thread):
         return voltage
     
     def stop(self):
+        log.debug("bb.stop()");
+        self.disableMotor()
+        self.disableRC()
+        self.flush()
         self.isActive = False
     
     def run(self):

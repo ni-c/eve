@@ -18,6 +18,24 @@ eveApp.controller('EveCtrl', function ($scope, $http) {
   }
   refresh();
   
+  $scope.control = {
+      motor0: {
+        steps: 100,
+        speed: 1,
+        direction: 0
+      },
+      motor1: {
+        steps: 100,
+        speed: 1,
+        direction: 0
+      },
+      motor2: {
+        steps: 100,
+        speed: 1,
+        direction: 0
+      }
+  }
+  
   $scope.toggleRc = function() {
     $http({
       url: '/data.json',
@@ -36,4 +54,29 @@ eveApp.controller('EveCtrl', function ($scope, $http) {
     });
   }
   
+  $scope.submit_control = function() {
+    var data = {
+        motor0: {
+          steps: parseInt($scope.control.motor0.steps),
+          speed: parseInt($scope.control.motor0.speed),
+          direction: parseInt($scope.control.motor0.direction)
+        },
+        motor1: {
+          steps: parseInt($scope.control.motor1.steps),
+          speed: parseInt($scope.control.motor1.speed),
+          direction: parseInt($scope.control.motor1.direction)
+        },
+        motor2: {
+          steps: parseInt($scope.control.motor2.steps),
+          speed: parseInt($scope.control.motor2.speed),
+          direction: parseInt($scope.control.motor2.direction)
+        }
+    }
+    $http({
+      url: '/control.json',
+      method: "POST",
+      data: data,
+      headers: {'Content-Type': 'application/json'}
+    });
+  }
 });

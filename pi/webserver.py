@@ -29,6 +29,16 @@ class JsonApi(BaseHTTPRequestHandler):
                 self.send_response(200)
             except:
                 self.send_error(400, "Bad Request")
+        elif self.path == '/control.json':
+            try:
+                content_len = int(self.headers.getheader('content-length'))
+                post_body = self.rfile.read(content_len)
+                post_data = json.loads(post_body)
+                self.server.bb.setMotorSteps(0, post_data['motor0']['steps']).setMotorSpeed(0, post_data['motor0']['speed']).setMotorDirection(0, post_data['motor0']['direction']);
+                self.server.bb.setMotorSteps(1, post_data['motor1']['steps']).setMotorSpeed(1, post_data['motor1']['speed']).setMotorDirection(1, post_data['motor1']['direction']);
+                self.server.bb.setMotorSteps(2, post_data['motor2']['steps']).setMotorSpeed(2, post_data['motor2']['speed']).setMotorDirection(2, post_data['motor2']['direction']);
+            except:
+                self.send_error(400, "Bad Request")
         else:
             self.send_error(404, "Not Found")
             

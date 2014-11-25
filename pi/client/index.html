@@ -197,6 +197,74 @@
           </table>
         </div>
   	  </div>
+  	  <div class="row">
+  	  	<div class="col-sm-9">
+  	  	  <h2>Control</h2>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  Motor
+                </th>
+                <th>
+                  Steps
+                </th>
+                <th>
+                  Speed
+                </th>
+                <th>
+                  Dir
+                </th>
+              </tr>
+            </thead>
+            <tbody> 
+              <tr>
+                <td>
+                  #0
+                </td>
+                <td>
+                  <input type="text" value="100" ng-model="control.motor0.steps" />
+                </td>
+                <td>
+                  <input type="text" value="1" ng-model="control.motor0.speed" />
+                </td>
+                <td>
+                  <input type="text" value="0" ng-model="control.motor0.direction" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  #1
+                </td>
+                <td>
+                  <input type="text" value="100" ng-model="control.motor1.steps" />
+                </td>
+                <td>
+                  <input type="text" value="1" ng-model="control.motor1.speed" />
+                </td>
+                <td>
+                  <input type="text" value="0" ng-model="control.motor1.direction" />
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  #2
+                </td>
+                <td>
+                  <input type="text" value="100" ng-model="control.motor2.steps" />
+                </td>
+                <td>
+                  <input type="text" value="1" ng-model="control.motor2.speed" />
+                </td>
+                <td>
+                  <input type="text" value="0" ng-model="control.motor2.direction" />
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <button ng-click="submit_control()">Submit</button>
+  	  	</div>
+  	  </div>
     </div>
   </body>
 </html>
