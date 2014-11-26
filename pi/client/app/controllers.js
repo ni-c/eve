@@ -7,7 +7,7 @@ eveApp.controller('EveCtrl', function ($scope, $http) {
       $http.get('/data.json').success(function(data) {
         $('#disconnected').hide();
         $scope.data = data;
-        setTimeout(refresh, 500);
+        setTimeout(refresh, 100);
       }).
       error(function(data) {
         $('#disconnected').show();

@@ -117,12 +117,18 @@ class I2C (threading.Thread):
         return self.buffer[RC_CHANNEL_POS[0]] - RC_OFFSET[0], self.buffer[RC_CHANNEL_POS[1]] - RC_OFFSET[1], self.buffer[RC_CHANNEL_POS[2]] - RC_OFFSET[2], self.buffer[RC_CHANNEL_POS[3]] - RC_OFFSET[3]
     
     def update(self):
-        self.buffer = self.bus.read_i2c_block_data(self.address, 0)
+        try:
+            self.buffer = self.bus.read_i2c_block_data(self.address, 0)
+        except IOError:
+            log.error("read_i2c_block_data IOError");
         return self
 
     def flush(self):
         self.flushNeeded = False
-        self.bus.write_i2c_block_data(self.address, 0, self.buffer)
+        try:
+            self.bus.write_i2c_block_data(self.address, 0, self.buffer)
+        except IOError:
+            log.error("write_i2c_block_data IOError");
         return self
     
     def enableRC(self):
@@ -141,7 +147,7 @@ class I2C (threading.Thread):
         return self.getBit(self.buffer[0], 1)
      
     def enableMotor(self):
-        log.debug("enableMotor()");
+        log.debug("bb.enableMotor()");
         self.buffer[0] = self.setBit(self.buffer[0], 5, 1)
         self.flushNeeded = True
         return self
