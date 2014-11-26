@@ -12,6 +12,8 @@
  *   0x00 Bit 2: Direction Motor X
  *   0x00 Bit 3: Direction Motor Y
  *   0x00 Bit 4: Direction Motor Z
+ *   0x00 Bit 5: Motor En/Disable
+ *   0X00 Bit 6: Relais En/Disable
  * 0x02-0x03: Remaining steps stepper 1
  * 0x04-0x05: Remaining steps stepper 2
  * 0x06-0x07: Remaining steps stepper 3
@@ -50,9 +52,11 @@ void init(void) {
     // Disable interrupts
     cli();
 
-    // PD6 -> TB6560 Ground
+    // PD6, PB1 -> TB6560 Ground
     DDRD |= (1 << DDD6);
     PORTD &= ~(1 << PD6);
+    DDRB |= (1 << DDB1);
+    PORTB &= ~(1 << PB1);
 
     // TWI slave init
     i2c_init(I2CADDRESS);
@@ -93,8 +97,8 @@ int main(void) {
                     rx_disable();
                 }
 
+                // Update motor direction and enabled flag
                 motor_update_register(control_register);
-
             }
 
             // Update motor vars

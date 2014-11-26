@@ -38,12 +38,6 @@ uint16_t speed_cnt[3] = { 0, 0, 0 };
 uint16_t speed[3] = { 0, 0, 0 };
 uint16_t steps[3] = { 0, 0, 0 };
 
-struct s_enabled {
-    uint8_t x :1;
-    uint8_t y :1;
-    uint8_t z :1;
-} enabled;
-
 /**
  * Timer Compare Interrupt
  */
@@ -53,42 +47,33 @@ ISR (TIMER0_COMPA_vect) {
     sei();
 
     // Disable our motors if the where enabled last round
-    if (enabled.x == 1) {
-        PORTB &= ~(1 << PB2);
-        enabled.x = 0;
-    }
-    if (enabled.y == 1) {
-        PORTD &= ~(1 << PD5);
-        enabled.y = 0;
-    }
-    if (enabled.z == 1) {
-        PORTB &= ~(1 << PB3);
-        enabled.z = 0;
-    }
+    PORTB &= ~((1 << PB2) | (1 << PB3));
+    PORTD &= ~(1 << PD5);
 
-    for (int i = 0; i < 3; ++i) {
+    for (uint8_t i = 0; i < 3; ++i) {
 
         // Do we have steps left
-        if (steps[i] > 0) {
-            speed_cnt[i]++;
+        if (steps[i] != 0) {
             // Have we reached our target speed
-            if (speed_cnt[i] > speed[i]) {
+            if (speed_cnt[i]++ > speed[i]) {
                 steps[i]--;
-                i2c_buffer[I2C_MOTOR_BUFFER_OFFSET + 1 + i * 2] = steps[i] & 0xff;
-                i2c_buffer[I2C_MOTOR_BUFFER_OFFSET + i * 2] = (steps[i] >> 8);
+            	uint8_t buffer = I2C_MOTOR_BUFFER_OFFSET + i * 2;
+                i2c_buffer[buffer + 1] = steps[i] & 0xff;
+                i2c_buffer[buffer] = (steps[i] >> 8);
                 speed_cnt[i] = 0;
-                if (i == 0) {
+                switch(i) {
+                case 0:
                     // X-CLK
-                    enabled.x = 1;
                     PORTB |= (1 << PB2);
-                } else if (i == 1) {
+                    break;
+                case 1:
                     // Y-CLK
-                    enabled.y = 1;
                     PORTD |= (1 << PD5);
-                } else {
+                    break;
+                default:
                     // Z-CLK
-                    enabled.z = 1;
                     PORTB |= (1 << PB3);
+                	break;
                 }
             }
         }
@@ -99,9 +84,10 @@ ISR (TIMER0_COMPA_vect) {
  * Update the values of the motor control
  */
 void motor_update(void) {
-    for (int i = 0; i < 3; ++i) {
-        speed[i] = ((uint16_t) i2c_buffer[I2C_MOTOR_BUFFER_OFFSET + 6 + i * 2] << 8) | i2c_buffer[I2C_MOTOR_BUFFER_OFFSET + 7 + i * 2];
-        steps[i] = ((uint16_t) i2c_buffer[I2C_MOTOR_BUFFER_OFFSET + i * 2] << 8) | i2c_buffer[I2C_MOTOR_BUFFER_OFFSET + 1 + i * 2];
+    for (uint8_t i = 0; i < 3; ++i) {
+    	uint8_t buffer = I2C_MOTOR_BUFFER_OFFSET + i * 2;
+        speed[i] = ((uint16_t) i2c_buffer[buffer + 6] << 8) | i2c_buffer[buffer + 7];
+        steps[i] = ((uint16_t) i2c_buffer[buffer] << 8) | i2c_buffer[buffer + 1];
     }
 }
 
@@ -109,28 +95,35 @@ void motor_update(void) {
  * Update the motor directions
  */
 void motor_update_register(volatile uint8_t *control_register) {
-    // Bit 2 in control Direction Motor X;
+    // Bit 2 in control register: Direction Motor X;
     if ((control_register[0] >> 2) & 0x01) {
         PORTD &= ~(1 << PD0);
     } else {
         PORTD |= (1 << PD0);
     }
-    // Bit 3 in control Direction Motor Y;
+    // Bit 3 in control register: Direction Motor Y;
     if ((control_register[0] >> 3) & 0x01) {
         PORTD &= ~(1 << PD1);
     } else {
         PORTD |= (1 << PD1);
     }
-    // Bit 4 in control Direction Motor Z;
+    // Bit 4 in control register: Direction Motor Z;
     if ((control_register[0] >> 4) & 0x01) {
         PORTB &= ~(1 << PB4);
     } else {
         PORTB |= (1 << PB4);
     }
+    // Bit 5 in control register: en/disable motorcontrol
     if ((control_register[0] >> 5) & 0x01) {
         PORTD &= ~(1 << PD4);
     } else {
     	PORTD |= (1 << PD4);
+    }
+    // Bit 6 in control register: relais
+    if ((control_register[0] >> 6) & 0x01) {
+        PORTB &= ~(1 << PB0);
+    } else {
+    	PORTB |= (1 << PB0);
     }
 }
 
@@ -140,19 +133,20 @@ void motor_update_register(volatile uint8_t *control_register) {
 void motor_init(void) {
 
     // Set ports to output
-    DDRB |= (1 << DDB2) | (1 << DDB3) | (1 << DDB4);
+    DDRB |= (1 << DDB0) | (1 << DDB2) | (1 << DDB3) | (1 << DDB4);
     DDRD |= (1 << DDD0) | (1 << DDD1) | (1 << DDD4) | (1 << DDD5);
 
     // Disable TB6560
     PORTD |= (1 << PD4);
 
+    // Disable TB6550 Relais
+    PORTB |= (1 << PB0);
+
     // CTC Modus
     TCCR0A = (1 << WGM01);
 
     // 64 prescale
-    //TCCR0B |= (1 << CS01) | (1 << CS00);
-
-    TCCR0B |= (1 << CS02) | (1 << CS00);
+    TCCR0B |= (1 << CS01) | (1 << CS00);
 
     // Output-Compare
     OCR0A = TIMER_COMPARE;
