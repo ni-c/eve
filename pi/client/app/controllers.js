@@ -21,17 +21,17 @@ eveApp.controller('EveCtrl', function ($scope, $http) {
   $scope.control = {
       motor0: {
         steps: 100,
-        speed: 1,
+        speed: 0,
         direction: 0
       },
       motor1: {
         steps: 100,
-        speed: 1,
+        speed: 0,
         direction: 0
       },
       motor2: {
         steps: 100,
-        speed: 1,
+        speed: 0,
         direction: 0
       }
   }
